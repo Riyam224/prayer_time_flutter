@@ -1,6 +1,7 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:task8/views/home_view.dart';
-import 'package:task8/views/prayer_view.dart';
 
 void main() {
   runApp(const PrayerTime());
@@ -11,7 +12,7 @@ class PrayerTime extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: HomeView(),
     );
