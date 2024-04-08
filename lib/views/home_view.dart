@@ -1,19 +1,11 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, sized_box_for_whitespace
-
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:intl/intl.dart';
 
-class HomeView extends StatelessWidget {
-  // todo
-  final List<Map<String, String>> prayerTimes = [
-    {'name': 'Fajr', 'time': '4:17 AM'},
-    {'name': 'Dhuhr', 'time': '12:05 PM'},
-    {'name': 'Asr', 'time': '3:40 PM'},
-    {'name': 'Maghrib', 'time': '6:28 PM'},
-    {'name': 'Isha', 'time': '8:00 PM'},
-  ];
+class HomeView extends StatefulWidget {
   final String currentPrayer;
-  final String currentTime = DateTime.now().toString().substring(11, 19);
 
   HomeView({
     Key? key,
@@ -40,6 +32,39 @@ class HomeView extends StatelessWidget {
   static bool _isSameTime(DateTime dateTime, TimeOfDay timeOfDay) {
     return dateTime.hour == timeOfDay.hour &&
         dateTime.minute == timeOfDay.minute;
+  }
+
+  @override
+  State<HomeView> createState() => _HomeViewState();
+}
+
+class _HomeViewState extends State<HomeView> {
+  // todo
+  final List<Map<String, String>> prayerTimes = [
+    {'name': 'Fajr', 'time': '4:17 AM'},
+    {'name': 'Dhuhr', 'time': '12:05 PM'},
+    {'name': 'Asr', 'time': '3:40 PM'},
+    {'name': 'Maghrib', 'time': '6:28 PM'},
+    {'name': 'Isha', 'time': '8:00 PM'},
+  ];
+  // todo
+  var currentTime = '';
+  // todo
+  @override
+  void initState() {
+    // TODO: implement initState
+    Timer.periodic(Duration(seconds: 1), (timer) {
+      updateTime();
+    });
+  }
+
+// todo
+  void updateTime() {
+    var now = DateTime.now();
+    var format = DateFormat.jms().format(now);
+    setState(() {
+      currentTime = format.toString();
+    });
   }
 
   @override
@@ -79,7 +104,7 @@ class HomeView extends StatelessWidget {
                   height: 20,
                 ),
                 Text(
-                  currentPrayer,
+                  widget.currentPrayer,
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 20,
